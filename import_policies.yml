@@ -4,15 +4,15 @@
   connection: local
   vars:
     provider:
-      password: admin
-      server: 10.155.132.173
-      user: admin
+      password: <password>
+      server: <IP address>
+      user: <user>
       validate_certs: no
-      server_port: 443	
+      server_port: <port>	
   tasks:
-  - name: Get policy names from directory 
+  - name: Get policy names from the directory 
     find:
-      paths: "/Users/adamski.molina/Documents/ansible_case/policies"
+      paths: <path>
     register: policy_names
 
   - name: print file names without path
@@ -22,7 +22,7 @@
   - name: Import ASM Policies 
     bigip_asm_policy_import:
       name: "{{ item }}"
-      source: "/Users/adamski.molina/Documents/ansible_case/policies/{{ item }}"
+      source: "<path>{{ item }}"
       provider: "{{ provider }}"
     loop: "{{ policy_names['files'] | map(attribute='path') | map('regex_replace','^.*/(.*)$','\\1') | list }}"
     loop_control:
