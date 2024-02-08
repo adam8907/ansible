@@ -4,11 +4,11 @@
   connection: local
   vars:
     provider:
-      password: admin
-      server: 10.155.132.173
-      user: admin
+      password: <password>
+      server: <IP address>
+      user: <user>
       validate_certs: no
-      server_port: 443	
+      server_port: <port>	
   tasks:
   - name: Collect ASM policies
     bigip_device_info:
@@ -22,7 +22,7 @@
     bigip_asm_policy_fetch:
       name: "{{ item.name }}"
       file: "{{ item.name }}.xml"
-      dest: /Users/adamski.molina/Documents/ansible_case
+      dest: <path>
       compact: true
       provider: "{{ provider }}"
     loop: "{{ device_policies | community.general.json_query('asm_policies') }}"
